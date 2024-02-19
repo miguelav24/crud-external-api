@@ -1,0 +1,91 @@
+<h3>Country List</h3>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label for="country-name" class="form-label">País</label>
+        <input
+          type="text"
+          class="form-control"
+          id="country-name"
+          placeholder="Introduce un país"
+          [(ngModel)]="country.name"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="country-capital" class="form-label">Capital</label>
+        <input
+          type="text"
+          class="form-control"
+          id="country-capital"
+          placeholder="Introduce una capital"
+          [(ngModel)]="country.capital"
+        />
+      </div>
+      <div class="mb-3">
+        <button
+          *ngIf="!showUpdateButton"
+          type="button"
+          class="btn btn-primary"
+          (click)="addCountry()"
+        >
+          Guardar
+        </button>
+        <button
+          *ngIf="showUpdateButton"
+          type="button"
+          class="btn btn-primary"
+          (click)="updateCountry()"
+        >
+          Actualizar
+        </button>
+      </div>
+    </div>
+    <div class="col-md-6"></div>
+  </div>
+
+  <div class="row">
+    @if(countryList.length > 0) {
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">País</th>
+          <th scope="col">Capital</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(country of countryList; track country.area) {
+        <tr>
+          <td>{{ country.name }}</td>
+          <td>{{ country.capital }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-success"
+              (click)="editCountry(country.area)"
+            >
+              Editar
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger ms-2"
+              (click)="deleteCountry(country.area)"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    }
+  </div>
+
+  @if(errorMessage) {
+  <div class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </div>
+  }
+</div>
